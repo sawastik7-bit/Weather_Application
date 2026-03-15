@@ -8,8 +8,8 @@
 
 body {
     font-family: 'Nunito', sans-serif;
-    background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
-    min-height: 100vh;
+    background-image:url("https://wallpapercave.com/wp/Z8q8Azf.png");
+        min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: flex-start;
