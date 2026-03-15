@@ -14,7 +14,7 @@ onSearch(city);
         }
     }
   return (
-    <div>
+    <div className='search-bar'>
       <input type="text"
       placeholder='Enter city name...'
       value={city}
@@ -23,7 +23,7 @@ onSearch(city);
       }}
       onKeyDown={handleKeyDown}
        />
-       <button onClick={handleSearch}></button>
+       <button onClick={handleSearch}>Search</button>
     </div>
   )
 }

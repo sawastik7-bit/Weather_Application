@@ -1,41 +1,40 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import SearchBar from './components/SearchBar'
 import WeatherDetails from './components/WeatherDetails'
 import WeatherCard from './components/WeatherCard'
-import Forecast from './components/Forecast'
-import {getForecast,getWeather} from './api/weather'
+// import Forecast from './components/Forecast'  ← comment out
+import { getForecast, getWeather } from './api/weather'
+import './App.css'
+
 const App = () => {
 
-const [weather,setWeather]=useState(null);
-const [forecast,setForecast]=useState(null);
+    const [weather, setWeather] = useState(null);
+   
+    const [error, setError] = useState('');
+    const [loading, setLoading] = useState(false);
 
-const [error,setError]=useState('');
-const [loading,setLoading]=useState(false);
+    const handleSearch = async (city) => {
+        setLoading(true);
+        setError('');
+        setWeather(null);
+       
 
-const handleSearch=async(city)=>{
-  setLoading(true);
-  setError('');
-  setWeather(null);
-  setForecast(null);
+        try {
+            const [weatherData] = await Promise.all([
+                getWeather(city),
+                getForecast(city)
+            ]);
+            setWeather(weatherData);
+          
+        } catch (error) {
+            setError(error.message);
+        } finally {
+            setLoading(false);
+        }
+    }
 
-  try {
-    const [weatherData,forecastData]=await Promise.all([
-      getWeather(city),
-      getForecast(city)
-    ]);
-
-
-    setWeather(weatherData);
-    setForecast(forecastData);
-  }catch(error){
-    setError(error.message);
-  }finally{
-    setLoading(false);
-  }
-}
-
-  return (
-    <div className="app">
+    return (
+        <div className="app">
             <h1>Weather App</h1>
             <SearchBar onSearch={handleSearch} />
 
@@ -49,7 +48,7 @@ const handleSearch=async(city)=>{
                 </>
             )}
 
-            {forecast && <Forecast data={forecast} />}
+            {/* {forecast && <Forecast data={forecast} />} */}
         </div>
     );
 }
