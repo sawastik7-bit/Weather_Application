@@ -6,6 +6,22 @@
     box-sizing: border-box;
 }
 
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(6px);
+    z-index: 0;
+}
+
+.app {
+    position: relative;
+    z-index: 1;
+}
 body {
     font-family: 'Nunito', sans-serif;
     background-image:url("https://wallpapercave.com/wp/Z8q8Azf.png");
