@@ -1,42 +1,224 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+body {
+    font-family: 'Nunito', sans-serif;
+    background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 40px 20px;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+/* Glass effect — sab cards pe lagega */
+.glass {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 16px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+/* ───── App ───── */
+.app {
+    width: 100%;
+    max-width: 600px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
 }
 
-.card {
-  padding: 2em;
+.app h1 {
+    text-align: center;
+    color: white;
+    font-size: 2rem;
+    font-weight: 700;
+    letter-spacing: 2px;
 }
 
-.read-the-docs {
-  color: #888;
+/* ───── SearchBar ───── */
+.search-bar {
+    display: flex;
+    gap: 10px;
+}
+
+.search-bar input {
+    flex: 1;
+    padding: 14px 20px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(12px);
+    color: white;
+    font-size: 1rem;
+    font-family: 'Nunito', sans-serif;
+    outline: none;
+}
+
+.search-bar input::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.search-bar button {
+    padding: 14px 24px;
+    border: none;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.25);
+    color: white;
+    font-size: 1rem;
+    font-family: 'Nunito', sans-serif;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.search-bar button:hover {
+    background: rgba(255, 255, 255, 0.4);
+}
+
+/* ───── Loading & Error ───── */
+.loading, .error {
+    text-align: center;
+    font-size: 1rem;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.loading {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.error {
+    color: #ff6b6b;
+    background: rgba(255, 107, 107, 0.1);
+}
+
+/* ───── WeatherCard ───── */
+.weather-card {
+    padding: 30px;
+    text-align: center;
+    color: white;
+}
+
+.city-name h2 {
+    font-size: 1.8rem;
+    font-weight: 700;
+}
+
+.weather-main {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin: 10px 0;
+}
+
+.weather-main h1 {
+    font-size: 4rem;
+    font-weight: 700;
+}
+
+.weather-main img {
+    width: 80px;
+    height: 80px;
+}
+
+.description {
+    font-size: 1.1rem;
+    text-transform: capitalize;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.feels-like {
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.6);
+    margin-top: 6px;
+}
+
+/* ───── WeatherDetails ───── */
+.weather-details {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+}
+
+.detail-card {
+    padding: 20px;
+    text-align: center;
+    color: white;
+}
+
+.detail-label {
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.6);
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.detail-value {
+    font-size: 1.4rem;
+    font-weight: 700;
+}
+
+/* ───── Forecast ───── */
+.forecast {
+    color: white;
+}
+
+.forecast h3 {
+    font-size: 1.1rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: rgba(255, 255, 255, 0.7);
+    margin-bottom: 14px;
+}
+
+.forecast-cards {
+    display: flex;
+    gap: 12px;
+    overflow-x: auto;
+}
+
+.forecast-card {
+    min-width: 110px;
+    padding: 16px 12px;
+    text-align: center;
+    color: white;
+    flex-shrink: 0;
+}
+
+.forecast-day {
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.forecast-desc {
+    font-size: 0.75rem;
+    color: rgba(255, 255, 255, 0.6);
+    text-transform: capitalize;
+    margin-bottom: 8px;
+}
+
+.forecast-temp {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    font-size: 0.9rem;
+    font-weight: 700;
+}
+
+.forecast-temp .max {
+    color: #ffd93d;
+}
+
+.forecast-temp .min {
+    color: rgba(255, 255, 255, 0.5);
 }

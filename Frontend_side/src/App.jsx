@@ -1,35 +1,57 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React, { useState } from 'react'
+import SearchBar from './components/SearchBar'
+import WeatherDetails from './components/WeatherDetails'
+import WeatherCard from './components/WeatherCard'
+import Forecast from './components/Forecast'
+import {getForecast,getWeather} from './api/weather'
+const App = () => {
 
-function App() {
-  const [count, setCount] = useState(0)
+const [weather,setWeather]=useState(null);
+const [forecast,setForecast]=useState(null);
+
+const [error,setError]=useState('');
+const [loading,setLoading]=useState(false);
+
+const handleSearch=async(city)=>{
+  setLoading(true);
+  setError('');
+  setWeather(null);
+  setForecast(null);
+
+  try {
+    const [weatherData,forecastData]=await Promise.all([
+      getWeather(city),
+      getForecast(city)
+    ]);
+
+
+    setWeather(weatherData);
+    setForecast(forecastData);
+  }catch(error){
+    setError(error.message);
+  }finally{
+    setLoading(false);
+  }
+}
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <div className="app">
+            <h1>Weather App</h1>
+            <SearchBar onSearch={handleSearch} />
+
+            {loading && <p className="loading">Fetching weather...</p>}
+            {error && <p className="error">{error}</p>}
+
+            {weather && (
+                <>
+                    <WeatherCard data={weather} />
+                    <WeatherDetails data={weather} />
+                </>
+            )}
+
+            {forecast && <Forecast data={forecast} />}
+        </div>
+    );
 }
 
 export default App
